@@ -52,8 +52,9 @@ struct CategoryPickerView: View {
                                     
                                     Text(category.name)
                                         .font(.caption)
-                                        .foregroundStyle(.primary)
                                         .multilineTextAlignment(.center)
+                                        .lineLimit(1)
+                                        
                                 }
                             }
                         }

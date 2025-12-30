@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftData
 import Observation
+import SwiftData
 
 @Observable
 final class TransactionDetailViewModel {
@@ -16,17 +16,18 @@ final class TransactionDetailViewModel {
     var date: Date = .now
     var note: String = ""
     var selectedCategory: TransactionCategory?
-    
+
     var isShowingCategoryPicker = false
-    
+    var isShowingDeleteAlert = false
+
     private var transactionToEdit: Transaction?
-    
+
     var isEditing: Bool { transactionToEdit != nil }
     var isSaveDisabled: Bool { selectedCategory == nil || amount == 0 }
-    
+
     init(transaction: Transaction? = nil) {
         self.transactionToEdit = transaction
-        
+
         if let t = transaction {
             self.amount = t.amount
             self.date = t.date
@@ -37,7 +38,7 @@ final class TransactionDetailViewModel {
             }
         }
     }
-    
+
     func save(context: ModelContext) {
         if let existing = transactionToEdit {
             existing.amount = amount
@@ -54,6 +55,12 @@ final class TransactionDetailViewModel {
                 category: selectedCategory
             )
             context.insert(newTransaction)
+        }
+    }
+
+    func delete(context: ModelContext) {
+        if let transaction = transactionToEdit {
+            context.delete(transaction)
         }
     }
 }

@@ -21,7 +21,6 @@ struct TransactionListView: View {
     @State private var showingAddSheet = false
     @State private var transactionToEdit: Transaction?
     
-    // State to trigger the alert
     @State private var transactionToDelete: Transaction?
     
     @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
@@ -93,7 +92,6 @@ struct TransactionListView: View {
         }
     }
     
-    // Helper to capture the index and set the state variable
     private func promptToDelete(at offsets: IndexSet) {
         if let index = offsets.first {
             transactionToDelete = transactions[index]
